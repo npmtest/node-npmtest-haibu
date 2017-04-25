@@ -687,6 +687,7 @@ log\\|\
 min\\|mock\\|\
 node_module\\|\
 rollup\\|\
+spec\\|\
 test\\|tmp\\|\
 vendor\\)s\\{0,1\\}\\(\\b\\|_\\)\
 " ' +
@@ -10105,7 +10106,7 @@ local.assetsDict['/assets.readmeCustomOrg.npmdoc.template.md'] = '\
 # npmdoc-{{env.npm_package_name}} \
 \n\
 \n\
-#### api documentation for \
+#### basic api documentation for \
 {{#if env.npm_package_homepage}} \
 [{{env.npm_package_name}} (v{{env.npm_package_version}})]({{env.npm_package_homepage}}) \
 {{#unless env.npm_package_homepage}} \
@@ -15696,7 +15697,11 @@ instruction\n\
                                 local.ajax(options2.element, function (error) {
                                     if (error && !options.dict[match0]) {
                                         options.dict[match0] = true;
-                                        console.error('added ' + match0);
+                                        console.error(
+                                            'cli.customOrgStarFilterNotBuilt - not built ' +
+                                                match0
+                                        );
+                                        console.log(match0);
                                     }
                                     onParallel();
                                 });
@@ -15706,10 +15711,7 @@ instruction\n\
                         });
                         onParallel();
                     });
-                }, function () {
-                    console.log(Object.keys(options.dict).sort().join('\n'));
-                    local.exit();
-                });
+                }, local.onErrorThrow);
             }());
             return;
         case 'dbTableCustomOrgCrudGetManyByQuery':
